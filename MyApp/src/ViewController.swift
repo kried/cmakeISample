@@ -1,6 +1,5 @@
 import UIKit
 import MyFramework
-import CommonFramework
 
 class ViewController: UIViewController {
 

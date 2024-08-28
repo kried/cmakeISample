@@ -59,6 +59,10 @@ set_target_properties(MyFramework PROPERTIES
     XCODE_ATTRIBUTE_MACH_O_TYPE "mh_dylib"  # Ensure the Mach-O type is Dynamic Library
 )
 
+# Add dependency on CommonFramework
+add_subdirectory("${CMAKE_SOURCE_DIR}/CommonFramework" CommonFramework)
+target_link_libraries(MyFramework PRIVATE CommonFramework)
+
 # Install the framework
 install(TARGETS MyFramework
     FRAMEWORK DESTINATION ${FRAMEWORKS_DESTINATION}

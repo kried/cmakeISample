@@ -1,5 +1,6 @@
 #import <MyFramework/MyObjcClass.h>
-#import "MyObjcClass_Internal.h"  // If you need internal methods
+#import "MyObjcClass_Internal.h"
+#import "Common.h"
 
 #include "MyClass.h"
 
@@ -7,8 +8,10 @@
 
 - (void)greet {
     MyClass cppClass;
-    cppClass.hello(); // Call C++ method
+    cppClass.hello();
     NSLog(@"Hello from MyObjcClass!");
+    Common *commonInstance = [Common new];
+    [commonInstance greet];
 }
 
 - (void)internalMethod {
