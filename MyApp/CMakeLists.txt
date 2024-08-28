@@ -19,13 +19,13 @@ set(CMAKE_OSX_DEPLOYMENT_TARGET "15.0")
 set(CFBUNDLE_VERSION "1.0.0")
 
 # Add dependencies
-add_dependencies(MyApp MyFramework)
+add_dependencies(MyApp MySdk)
 
-target_link_libraries(MyApp PRIVATE MyFramework)
+target_link_libraries(MyApp PRIVATE MySdk)
 
 # Ensure that MyApp knows where to find frameworks
 target_link_options(MyApp PRIVATE
-    -framework MyFramework
+    -framework MySdk
 )
 
 set_target_properties(MyApp PROPERTIES

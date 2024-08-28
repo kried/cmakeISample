@@ -1,4 +1,4 @@
-#import <MyFramework/MyObjcClass.h>
+#import <MySdk/MyObjcClass.h>
 #import "MyObjcClass_Internal.h"
 #import "Common.h"
 

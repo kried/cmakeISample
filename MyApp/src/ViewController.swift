@@ -1,5 +1,5 @@
 import UIKit
-import MyFramework
+import MySdk
 
 class ViewController: UIViewController {
 

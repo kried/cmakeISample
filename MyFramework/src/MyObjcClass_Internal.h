@@ -1,4 +1,4 @@
-#import <MyFramework/MyObjcClass.h>
+#import <MySdk/MyObjcClass.h>
 
 @interface MyObjcClass ()
 

@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 
 # Set the project name and the framework target name
 project(MyFramework)
+set(TARGET_NAME "MySdk")
 
 # Set the minimum deployment target for iOS
 set(CMAKE_OSX_DEPLOYMENT_TARGET "14.0")
@@ -27,7 +28,7 @@ set(SOURCES
 # Define public headers
 set(PUBLIC_HEADERS
     include/MyObjcClass.h          # Public Objective-C header
-    include/MyFramework.h          # Umbrella header
+    include/${TARGET_NAME}.h                # Umbrella header
 )
 
 # Define private/internal headers
@@ -36,23 +37,23 @@ set(PRIVATE_HEADERS
 )
 
 # Create the library
-add_library(MyFramework SHARED
+add_library(${TARGET_NAME} SHARED
     ${SOURCES}
     ${PUBLIC_HEADERS}
     ${PRIVATE_HEADERS}
 )
 
-target_include_directories(MyFramework PUBLIC
+target_include_directories(${TARGET_NAME} PUBLIC
     ${CMAKE_SOURCE_DIR}/MyFramework/include
 )
 
 # Set the properties to generate a dynamic framework
-set_target_properties(MyFramework PROPERTIES
+set_target_properties(${TARGET_NAME} PROPERTIES
     FRAMEWORK TRUE
     FRAMEWORK_VERSION A
     XCODE_ATTRIBUTE_DEFINES_MODULE YES
     XCODE_ATTRIBUTE_MODULEMAP_FILE "${CMAKE_SOURCE_DIR}/MyFramework/module.modulemap"
-    MACOSX_FRAMEWORK_IDENTIFIER com.example.MyFramework
+    MACOSX_FRAMEWORK_IDENTIFIER com.example.${TARGET_NAME}
     PUBLIC_HEADER "${PUBLIC_HEADERS}"
     XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY "iPhone Developer"
     XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET "${CMAKE_OSX_DEPLOYMENT_TARGET}"
@@ -61,15 +62,15 @@ set_target_properties(MyFramework PROPERTIES
 
 # Add dependency on CommonFramework
 add_subdirectory("${CMAKE_SOURCE_DIR}/CommonFramework" CommonFramework)
-target_link_libraries(MyFramework PRIVATE CommonFramework)
+target_link_libraries(${TARGET_NAME} PRIVATE CommonFramework)
 
 # Install the framework
-install(TARGETS MyFramework
+install(TARGETS ${TARGET_NAME}
     FRAMEWORK DESTINATION ${FRAMEWORKS_DESTINATION}
 )
 
 # Set the header search paths for Xcode to use angle brackets for imports
-target_include_directories(MyFramework SYSTEM PUBLIC
+target_include_directories(${TARGET_NAME} SYSTEM PUBLIC
     "$<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/MyFramework/include>"
     "$<INSTALL_INTERFACE:Headers>"
 )
