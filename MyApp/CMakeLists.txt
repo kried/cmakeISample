@@ -6,12 +6,9 @@ set(CMAKE_XCODE_ATTRIBUTE_CODE_SIGNING_ALLOWED NO)
 
 #-----
 
-# Specify the path to the MyFramework
-# Assuming MyFramework is a sibling directory to MyApp
-set(MY_FRAMEWORK_PATH "${CMAKE_SOURCE_DIR}/MyFramework")
-
-# Include the MyFramework CMakeLists
-add_subdirectory(${MY_FRAMEWORK_PATH} MyFramework)
+# Include the frameworks CMakeLists
+add_subdirectory("${CMAKE_SOURCE_DIR}/MyFramework" MyFramework)
+add_subdirectory("${CMAKE_SOURCE_DIR}/CommonFramework" CommonFramework)
 
 # Create an executable for the app
 add_executable(MyApp
@@ -22,14 +19,16 @@ add_executable(MyApp
 set(CMAKE_OSX_DEPLOYMENT_TARGET "15.0")
 set(CFBUNDLE_VERSION "1.0.0")
 
-# Add dependency on MyFramework
+# Add dependencies
+add_dependencies(MyApp CommonFramework)
 add_dependencies(MyApp MyFramework)
 
-# Link MyFramework to MyApp
+target_link_libraries(MyApp PRIVATE CommonFramework)
 target_link_libraries(MyApp PRIVATE MyFramework)
 
-# Ensure that MyApp knows where to find MyFramework
+# Ensure that MyApp knows where to find frameworks
 target_link_options(MyApp PRIVATE
+ #   -framework CommonFramework
     -framework MyFramework
 )
 

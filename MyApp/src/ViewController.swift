@@ -1,12 +1,12 @@
 import UIKit
-import MyFramework // Import your Objective-C framework
+import MyFramework
+import CommonFramework
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Setup UI
         self.view.backgroundColor = .white
         let greetButton = UIButton(type: .system)
         greetButton.setTitle("Greet", for: .normal)
@@ -23,6 +23,6 @@ class ViewController: UIViewController {
 
     @objc func greetButtonTapped() {
         let myObjcClass = MyObjcClass()
-        myObjcClass.greet()  // Call the greet method
+        myObjcClass.greet()
     }
 }
